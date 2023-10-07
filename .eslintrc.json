@@ -1,0 +1,111 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:security/recommended",
+    "prettier"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.test.mjs", "**/__mocks__/*", "**/__tests__/*"],
+      "plugins": ["jest", "prettier"],
+      "extends": [
+        "plugin:jest/recommended",
+        "eslint:recommended",
+        "plugin:jest/style",
+        "prettier",
+        "plugin:node/recommended"
+      ],
+      "rules": {
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "import/no-extraneous-dependencies": "off",
+        "node/no-extraneous-import": "off",
+        "import/extensions": [
+          "error",
+          "always",
+          {
+            "js": "never",
+            "jsx": "never",
+            "mjs": "always"
+          }
+        ],
+        "import/order": [
+          "error",
+          {
+            "alphabetize": {
+              "caseInsensitive": true,
+              "order": "asc"
+            },
+            "groups": ["builtin", "external", "sibling", "parent"],
+            "newlines-between": "always-and-inside-groups"
+          }
+        ],
+        "quotes": ["error", "double", { "allowTemplateLiterals": true }],
+        "prettier/prettier": ["error"],
+        "no-console": "error",
+        "no-debugger": "warn",
+        "semi": ["error", "always"],
+        "jest/no-mocks-import": "off"
+      }
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["security", "sort-keys-fix", "prettier"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "js": "never",
+        "jsx": "never",
+        "mjs": "always"
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "caseInsensitive": true,
+          "order": "asc"
+        },
+        "groups": ["builtin", "external", "sibling", "parent"],
+        "newlines-between": "always-and-inside-groups"
+      }
+    ],
+    "indent": "off",
+    "max-len": ["error", { "code": 200 }],
+    "no-console": "error",
+    "no-debugger": "warn",
+    "no-tabs": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "no-unused-vars": ["error", { "args": "none" }],
+    "node/exports-style": ["error", "module.exports"],
+    "node/prefer-global/buffer": ["error", "always"],
+    "node/prefer-global/console": ["error", "always"],
+    "node/prefer-global/process": ["error", "always"],
+    "node/prefer-global/url": ["error", "always"],
+    "node/prefer-global/url-search-params": ["error", "always"],
+    "node/prefer-promises/dns": "error",
+    "node/prefer-promises/fs": "error",
+    "prettier/prettier": ["error"],
+    "quotes": ["error", "double", { "allowTemplateLiterals": true }],
+    "semi": ["error", "always"],
+    "sort-keys-fix/sort-keys-fix": [
+      "warn",
+      "asc",
+      { "caseSensitive": true, "natural": false }
+    ]
+  }
+}
