@@ -5,12 +5,12 @@ import config from "./config.mjs";
 // eslint-disable-next-line security/detect-non-literal-regexp
 const parseRegex = new RegExp(
   `${config.injectionStartDelimiter}(.*?)${config.injectionEndDelimiter}`,
-  "g"
+  "gm"
 );
 // eslint-disable-next-line security/detect-non-literal-regexp
 const argsRegex = new RegExp(
   `${config.injectionStartDelimiter}|${config.injectionEndDelimiter}`,
-  "g"
+  "gm"
 );
 
 export default class TemplateEngine {
@@ -30,6 +30,7 @@ export default class TemplateEngine {
 
       arr.push(result[0]);
       template = template.slice(result[0].length);
+      parseRegex.lastIndex = 0;
       result = parseRegex.exec(template);
     }
 
@@ -77,7 +78,26 @@ export default class TemplateEngine {
     return formalizedText;
   }
 
+  static #readInjectableKeys(templateArray) {
+    const injectableKeys = new Set([]);
+    templateArray.forEach((text) => {
+      if (
+        text.startsWith(config.injectionStartDelimiter) &&
+        text.endsWith(config.injectionEndDelimiter)
+      ) {
+        const sectionArgs = TemplateEngine.#readSectionArgs(text);
+        const sectionKey = (sectionArgs[0] || "").trim();
+        injectableKeys.add(sectionKey);
+      }
+    });
+    return [...injectableKeys];
+  }
+
   static process(template, data) {
     return TemplateEngine.#compile(TemplateEngine.#parse(template), data);
+  }
+
+  static getInjectableKeys(template) {
+    return TemplateEngine.#readInjectableKeys(TemplateEngine.#parse(template));
   }
 }
